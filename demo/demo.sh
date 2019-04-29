@@ -8,6 +8,9 @@ fi
 
 . $(dirname ${BASH_SOURCE})/../util.sh
 
+# if we are using wlan make sure its in promiscuous mode
+sudo ifconfig wlan0 promisc
+
 desc " start k3s server "
 run  "k3s server --no-deploy traefik --no-deploy servicelb &"
 
@@ -36,7 +39,6 @@ run "k3s kubectl apply -f $(relative nginxDeploy.yaml)"
 run "k3s kubectl get service nginx"
 
 desc "See if that works, feel free to curl that IP!"
-
 
 
 # desc "Let's cleanup and delete that pod"
