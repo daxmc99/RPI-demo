@@ -8,8 +8,8 @@ fi
 
 . $(dirname ${BASH_SOURCE})/../util.sh
 
-# start k3s server 
- k3s --no-deploy traefik --no-deploy=servicelb
+desc " start k3s server "
+run  "k3s server --no-deploy traefik --no-deploy servicelb &"
 
 # desc "There are no running pods"
 # run "kubectl --namespace=demos get pods"
