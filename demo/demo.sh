@@ -12,7 +12,7 @@ fi
 sudo ifconfig wlan0 promisc
 
 desc " start k3s server "
-run  "k3s server --no-deploy traefik --no-deploy servicelb &"
+# run  "k3s server --no-deploy traefik --no-deploy servicelb &"
 
 # desc "There are no running pods"
 # run "kubectl --namespace=demos get pods"
@@ -32,6 +32,7 @@ run "k3s kubectl apply -f $(relative metallb.yaml)"
 run "k3s kubectl get pods -n metallb-system"
 
 run "cat $(relative metallbConfig.yaml)"
+run "k3s kubectl apply -f $(relative metallbConfig.yaml)"
 
 run "k3s kubectl logs -l component=speaker -n metallb-system" 
 
@@ -39,6 +40,10 @@ run "k3s kubectl apply -f $(relative nginxDeploy.yaml)"
 run "k3s kubectl get service nginx"
 
 desc "See if that works, feel free to curl that IP!"
+
+run  "cat $(relative pi-hole.yaml)"
+run "k3s kubectl apply -f $(relative pi-hole.yaml)"
+run "k3s kubectl get pods -n kube-system"
 
 
 # desc "Let's cleanup and delete that pod"

@@ -1,0 +1,7 @@
+apiVersion: k3s.cattle.io/v1
+kind: HelmChart
+metadata:
+        name: pi-hole
+        namespace: kube-system
+spec:
+   chart: https://%{KUBERNETES_API}%/static/charts/pi-hole-0.1.0.tgz
